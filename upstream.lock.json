@@ -1,0 +1,11 @@
+{
+  "inspected_at": "2026-08-20",
+  "repository": "https://github.com/XPolicyLab/XPolicyLab",
+  "revision": "c07a09614dd44cc4a67483bcb9a82e7439d99926",
+  "reference_files": {
+    "model_contract": "model_template.py",
+    "reference_adapter": "policy/demo_policy/model.py",
+    "reference_loop": "policy/demo_policy/deploy.py",
+    "robot_dimensions": "utils/robot/_robot_info.json"
+  }
+}
