@@ -13,13 +13,19 @@ claim.
 | --- | --- | --- |
 | `00_contract` | Does a deterministic, observation-sensitive adapter preserve single/batch semantics and `env_idx` alignment? | runnable |
 | `01_reset_leakage` | Does an episode reset remove history that could alter the next episode? | runnable |
-| `02_observation_perturbations` | What changes under camera order, availability, latency, or stale frames? | planned |
+| `02_observation_perturbations` | Which decoded-observation changes are equivalent, detectable, or outside this boundary? | runnable |
 | `03_action_transforms` | Are equivalent action-coordinate transforms equivalent after canonicalization? | planned |
 | `04_policy_divergence` | Does a small learned policy turn boundary changes into behavioral divergence? | planned |
 
 The deterministic identity probe is deliberately nonzero and
 observation-sensitive. A zero-action demo can prove that plumbing runs, but
 not that observations or batch identities arrive intact.
+
+Stage 02 keeps equivalence and sensitivity separate: camera mapping order and
+identical redelivery must be invariant, while missing and stale camera fixtures
+for each configured view must be detectable by the identity instrument.
+Transport latency is reported as `not_run` because it requires official
+client/server timing evidence.
 
 ## Quick start
 
