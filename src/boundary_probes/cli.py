@@ -14,6 +14,7 @@ import numpy as np
 
 from . import __version__
 from .contract import run_contract_probe
+from .observation_perturbations import run_observation_probe
 from .reset_leakage import run_reset_probe
 
 UPSTREAM_REVISION = "c07a09614dd44cc4a67483bcb9a82e7439d99926"
@@ -25,6 +26,8 @@ def _record(command: str) -> dict[str, Any]:
         results.append(run_contract_probe())
     if command in {"reset", "all"}:
         results.append(run_reset_probe())
+    if command in {"observation", "all"}:
+        results.append(run_observation_probe())
     return {
         "schema_version": "1.0",
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -41,7 +44,10 @@ def _record(command: str) -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "command", choices=("contract", "reset", "all"), nargs="?", default="all"
+        "command",
+        choices=("contract", "reset", "observation", "all"),
+        nargs="?",
+        default="all",
     )
     parser.add_argument("--output", type=Path, help="optional JSON run-record path")
     args = parser.parse_args(argv)
