@@ -14,7 +14,7 @@ claim.
 | `00_contract` | Does a deterministic, observation-sensitive adapter preserve single/batch semantics and `env_idx` alignment? | runnable |
 | `01_reset_leakage` | Does an episode reset remove history that could alter the next episode? | runnable |
 | `02_observation_perturbations` | Which decoded-observation changes are equivalent, detectable, or outside this boundary? | runnable |
-| `03_action_transforms` | Are equivalent action-coordinate transforms equivalent after canonicalization? | planned |
+| `03_action_transforms` | Are equivalent action-coordinate transforms equivalent after canonicalization? | runnable |
 | `04_policy_divergence` | Does a small learned policy turn boundary changes into behavioral divergence? | planned |
 
 The deterministic identity probe is deliberately nonzero and

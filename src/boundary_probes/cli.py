@@ -13,6 +13,7 @@ from typing import Any
 import numpy as np
 
 from . import __version__
+from .action_transforms import run_action_probe
 from .contract import run_contract_probe
 from .observation_perturbations import run_observation_probe
 from .reset_leakage import run_reset_probe
@@ -28,6 +29,8 @@ def _record(command: str) -> dict[str, Any]:
         results.append(run_reset_probe())
     if command in {"observation", "all"}:
         results.append(run_observation_probe())
+    if command in {"action", "all"}:
+        results.append(run_action_probe())
     return {
         "schema_version": "1.0",
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -45,7 +48,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "command",
-        choices=("contract", "reset", "observation", "all"),
+        choices=("contract", "reset", "observation", "action", "all"),
         nargs="?",
         default="all",
     )
