@@ -43,4 +43,5 @@ def test_all_command_includes_stage_02():
         "00_contract",
         "01_reset_leakage",
         "02_observation_perturbations",
+        "03_action_transforms",
     ]
