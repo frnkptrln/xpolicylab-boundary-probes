@@ -42,6 +42,18 @@ python -m boundary_probes all --output artifacts/latest.json
 The command exits nonzero if a required control fails. Generated run records
 go under `artifacts/`, which is intentionally ignored by Git.
 
+## Comparing actions without losing their structure
+
+The shared comparator checks field names, chunk nesting and numeric leaf shapes
+before measuring a numeric delta. Mapping insertion order does not matter, and a
+numeric list and array with the same shape remain equivalent. Renamed actuators,
+changed axes and redistributed chunks cannot pass just because flattening them
+yields the same values. Empty actions, nonfinite values and invalid tolerances do
+not count as invariance. Deltas remain valid JSON even when subtraction overflows.
+
+`tests/test_compare.py` includes a wrong-axis adapter whose single/batch contract
+must fail. These remain fixture checks, not controller or physical-robot results.
+
 ## XPolicyLab compatibility target
 
 The adapter mirrors the current XPolicyLab lifecycle:
