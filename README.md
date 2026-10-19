@@ -51,6 +51,11 @@ changed axes and redistributed chunks cannot pass just because flattening them
 yields the same values. Empty actions, nonfinite values and invalid tolerances do
 not count as invariance. Deltas remain valid JSON even when subtraction overflows.
 
+Stage 02 requires a valid comparison before either invariance or sensitivity
+can pass. Empty or nonfinite actions, changed action structure or dimensions,
+and overflowed deltas fail with `observed: invalid` and comparison diagnostics.
+An unusable action is not evidence that the adapter detected a camera change.
+
 `tests/test_compare.py` includes a wrong-axis adapter whose single/batch contract
 must fail. These remain fixture checks, not controller or physical-robot results.
 
