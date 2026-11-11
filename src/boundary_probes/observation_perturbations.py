@@ -119,20 +119,36 @@ def _evaluate_case(
 ) -> dict[str, Any]:
     delta = action_delta(left, right)
     invariant = within(delta, atol)
+    comparable = bool(
+        delta["same_shape"]
+        and delta["same_structure"]
+        and delta["finite"]
+        and delta["left_size"] > 0
+        and delta["right_size"] > 0
+        and delta["max_abs"] is not None
+        and np.isfinite(delta["max_abs"])
+    )
     if requirement == "invariant":
-        passed = invariant
+        passed = comparable and invariant
     elif requirement == "detectable":
-        passed = not invariant
+        passed = comparable and not invariant
     else:
         raise ValueError(f"unknown requirement: {requirement!r}")
     return {
         "status": "pass" if passed else "fail",
         "declared_relation": relation,
         "requirement": requirement,
-        "observed": "invariant" if invariant else "detectable",
+        "observed": "invalid" if not comparable else (
+            "invariant" if invariant else "detectable"
+        ),
         "execution": execution,
         "atol": atol,
+        "comparison_valid": comparable,
         "same_shape": delta["same_shape"],
+        "same_structure": delta["same_structure"],
+        "finite": delta["finite"],
+        "left_size": delta["left_size"],
+        "right_size": delta["right_size"],
         "max_abs": delta["max_abs"],
     }
 
